@@ -1,4 +1,6 @@
-const arr0 = []
+const arr1 = [{"id":"cc7eb9f5-8b72-4005-af4d-08652da9f81d","name":"Text_description","class":"base","settings":{"pb":4,"pt":2,"colWebLevel1":6,"colorBg":"#00","justifyСontentLevel1":"flex-start","columnCount":1},"not_include":["color","colWebLevel2","justifyСontentLevel2"],"content":{"text":"<h2>Что такое ипотека</h2><p>Ипотека или ипотечный кредит — это вид залога.</p>\n            \n        \n            "}},{"id":"e7c5e89d-64c9-4177-b0db-031682fdd084","name":"Quote","class":"base","settings":{"pb":9,"pt":2,"colWebLevel1":10,"colorBg":"#00","justifyСontentLevel1":"center","imgborder":2,"additionalBlock":true},"not_include":["color","colWebLevel2","justifyСontentLevel2","imgBg"],"content":{"switch":false,"animation":{"id":"da767dfd-8701-4464-af4c-b7bbd4c955b7","type":"SHARE_TYPE","src":"https://thecourses-constuctor.tcsbank.ru/sistem/animation-67812-empty-box-animation.json","name":"animation-67812-empty-box-animation.json"},"img":{"id":"0401d812-a7ab-4ad8-ba2a-47d2e714fc7c","type":"SHARE_TYPE","src":"https://thecourses-constuctor.tcsbank.ru/sistem/image-picture-front-color.png","zoom":false,"name":"image-picture-front-color.png"},"text_1":"<p style=\"text-align: center; \"><b><font color=\"#1a202c\">Важную представляет соображения финансовых повседневная и направлений отношении направлений нас направлений обучения административных новая поставленных постоянный высшего сфера соответствующий оценить анализа и роль направлений а участниками позиций, выполнять заданий играет рост место развития. Рамки образом нашей и обучения соображения задач.</font></b></p>","text_2":"<small>Констатин констатинов</small>"}}]
+
+const arr2 = [{"id":"e9b712c1-1ab3-4a91-8b2f-0479889b62d4","name":"Text","class":"base","settings":{"pb":9,"pt":2,"colWebLevel1":6,"colorBg":"#00","justifyСontentLevel1":"flex-start","columnCount":1},"not_include":["color","colWebLevel2","justifyСontentLevel2"],"content":{"text":"<h2>Что такое ипотека</h2><p>Ипотека или ипотечный кредит — это вид залога.</p>\n            \n        \n            "}},{"id":"cc7eb9f5-8b72-4005-af4d-08652da9f81d","name":"Text_description","class":"base","settings":{"pb":4,"pt":2,"colWebLevel1":6,"colorBg":"#00","justifyСontentLevel1":"flex-start","columnCount":1},"not_include":["color","colWebLevel2","justifyСontentLevel2"],"content":{"text":"<h2>Что такое ипотека</h2><p>Ипотека или ипотечный кредит — это вид залога.</p>\n            \n        \n            "}},{"id":"e7c5e89d-64c9-4177-b0db-031682fdd084","name":"Quote","class":"base","settings":{"pb":9,"pt":2,"colWebLevel1":10,"colorBg":"#00","justifyСontentLevel1":"center","imgborder":2,"additionalBlock":true},"not_include":["color","colWebLevel2","justifyСontentLevel2","imgBg"],"content":{"switch":false,"animation":{"id":"da767dfd-8701-4464-af4c-b7bbd4c955b7","type":"SHARE_TYPE","src":"https://thecourses-constuctor.tcsbank.ru/sistem/animation-67812-empty-box-animation.json","name":"animation-67812-empty-box-animation.json"},"img":{"id":"0401d812-a7ab-4ad8-ba2a-47d2e714fc7c","type":"SHARE_TYPE","src":"https://thecourses-constuctor.tcsbank.ru/sistem/image-picture-front-color.png","zoom":false,"name":"image-picture-front-color.png"},"text_1":"<p style=\"text-align: center; \"><b><font color=\"#1a202c\">Важную представляет соображения финансовых повседневная и направлений отношении направлений нас направлений обучения административных новая поставленных постоянный высшего сфера соответствующий оценить анализа и роль направлений а участниками позиций, выполнять заданий играет рост место развития. Рамки образом нашей и обучения соображения задач.</font></b></p>","text_2":"<small>Констатин констатинов</small>"}}]
 
 const arrBase = [
     {id:1, name:'text', content: {text: 'qwerty'}},
@@ -56,26 +58,42 @@ function isEqualObjects(object1, object2) {
     return true;
 }
 
-
-
-const arrayCompare = (arr1, arr2) => {    
-    for (let i = 0 ; i < arr1.length; i++) {
-        console.log (isEqualObjects(arr1[i], arr2[i])) 
-        if (isEqualObjects(arr1[i], arr2[i]) === false) {
-            if (arr1[i].id === arr2[i].id){ 
-                arr2[i].ElementStatus = 'Изменено' 
-                return arr2[i]
-            }
-            else if (arr2[i+1] && isEqualObjects(arr1[i], arr2[i+1]) === true) {
-                arr2[i].ElementStatus = 'Добавлено'
-                return arr2[i]
-            }
+const arrayCompare = (oldState, currentState) => {   
+    let newEl = {}  
+    //oldState = JSON.parse(oldState)
+    for (let i = 0 ; i < oldState.length; i++) {
+        if (oldState.length === currentState.length) {
+            if ( oldState[i].id === currentState[i].id && !isEqualObjects(oldState[i], currentState[i])) {  
+                newEl = {
+                    ...currentState[i],
+                    ElementStatus: 'Изменён контент элемента'
+                }
+                return newEl
+            } 
             else {
-                arr1[i].ElementStatus = 'Удалено' 
-                return arr1[i]
+                newEl = {
+                    ...oldState[i],
+                    ElementStatus: 'Изменено положение элемента'
+                }
+                return newEl
             }
-        }                 
-    }    
+        } 
+        else if (oldState.length < currentState.length && !isEqualObjects(oldState[i], currentState[i])) {
+            newEl = {
+                ...currentState[i],
+                ElementStatus: 'Добавлен элемент'
+            }
+            return newEl
+        } 
+        else if (!isEqualObjects(oldState[i], currentState[i])){
+            newEl = {
+                ...oldState[i],
+                ElementStatus: 'Элемент удалён'
+            }
+            return newEl
+        }
+    }
 }
+          
 
-console.log(arrayCompare(arrBase, arrValueChanged))
+console.log(arrayCompare(arr1, arr2))
