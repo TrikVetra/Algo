@@ -23,7 +23,7 @@
 
 // ; Чтобы разрезать рулет на ﻿﻿55﻿﻿ частей, Ване понадобится разделить его в соотношении ﻿﻿2:32:3﻿﻿, после чего совместить два рулета по левому краю и разрезать бОльший рулет на одинарные кусочки — меньший тоже разделится на одинарные.
 
-let Counter = 0
+//let Counter = 0
 const Cutting = (N,Counter) => {    
     
         if (N > 1) {
@@ -34,17 +34,6 @@ const Cutting = (N,Counter) => {
         else if (Counter > 0){
             return Counter
         } else return 0
-    
-    // for (; N > 1;) {
-    //     if (N > 1) {
-    //         N = Math.ceil(N / 2)
-    //         Counter++
-    //     } 
-    //     else {
-    //         console.log(Counter)
-    //         return Counter
-    //     }
-    // }   
 }
 
 for (i=0; i<101; i++){
