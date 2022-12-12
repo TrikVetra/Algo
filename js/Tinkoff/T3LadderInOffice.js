@@ -34,6 +34,82 @@
 
 
 
-const countAndTime = [5, 5] //[1] - количество сотрудников, которое надо обойти, [2] - время, когда один из них уйдет
-const floors = [1, 4, 9, 16, 25] //Номера этажей
-const leaver = [2] //Номер сотрудника, который вот-вот уйдёт
+const countAndTime = [6, 4] //[0] - количество сотрудников, которое надо обойти, [1] - время, когда один из них уйдет
+const floors = [1, 2, 3, 6, 8, 25] //Номера этажей
+const outgoing = [5] //Номер сотрудника, который вот-вот уйдёт
+
+const howMuchMinutes = (countAndTime, floors, outgoing) => {
+    let minFloor = floors[0]
+    console.log(minFloor)
+
+    let maxFloor = floors[floors.length-1]
+    console.log(maxFloor)
+
+    let targetFloor = floors[outgoing-1]
+    console.log(targetFloor)
+
+    let maxTime = maxFloor - minFloor
+    console.log(maxTime)
+
+    let timeFromDown = targetFloor - minFloor
+    console.log(timeFromDown)
+
+    let timeFromUp = maxFloor - targetFloor
+    console.log(timeFromUp)
+
+    let timeX = countAndTime[1]
+    console.log(timeX)
+
+    if (timeFromDown <= timeX || timeFromUp <= timeX){
+        return maxTime
+    } else  if (timeFromDown < timeFromUp){
+        let diffDown = targetFloor - minFloor
+        let diffUp = maxFloor - targetFloor 
+        if (diffDown < diffUp) {
+            maxTime = targetFloor - minFloor + maxTime
+        } else maxTime = targetFloor - targetFloor + maxTime
+        return maxTime
+    }    
+}
+
+res = howMuchMinutes(countAndTime, floors, outgoing)
+console.log(res)
+
+
+
+
+var readline = require('readline');
+var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+let total = 0;
+process.stdin.on('end', () => { console.log(total); process.exit(0); });
+rl.on('line', function (data) {
+        data = data.split(' ');
+        const countAndTime = parseInt(data[0])
+        const floors = parseInt(data[1])
+        const outgoing = parseInt(data[2])
+
+        const howMuchMinutes = (countAndTime, floors, outgoing) => {
+            let minFloor = floors[0]        
+            let maxFloor = floors[floors.length-1]
+            let targetFloor = floors[outgoing-1]
+            let maxTime = maxFloor - minFloor
+            let timeFromDown = targetFloor - minFloor
+            let timeFromUp = maxFloor - targetFloor
+            let timeX = countAndTime[1]
+            if (timeFromDown <= timeX || timeFromUp <= timeX){
+                return maxTime
+            } else  if (timeFromDown < timeFromUp){
+                let diffDown = targetFloor - minFloor
+                let diffUp = maxFloor - targetFloor 
+                if (diffDown < diffUp) {
+                    maxTime = targetFloor - minFloor + maxTime
+                } else maxTime = targetFloor - targetFloor + maxTime
+                return maxTime
+            }    
+        }
+        total = howMuchMinutes(countAndTime, floors, outgoing)        
+});
