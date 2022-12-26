@@ -1,0 +1,25 @@
+const arr = [4,7,2,0,2]
+let count = 0
+
+const sortByChoising = (arr) => {
+    let tmpValue = arr[0]
+    let minIndex = 0
+    for (let i = 0; i < arr.length-1; i++) {        
+        for (let j = i; j < arr.length-1; j++) {
+            if (arr[j+1] < tmpValue) {
+                tmpValue = arr[j+1]
+                minIndex = j+1
+            }
+            count++
+        }
+        arr[minIndex] = arr[i]
+        arr[i] = tmpValue
+        tmpValue = arr[i+1]
+        minIndex = i+1
+        count++
+    }
+    return arr
+}
+
+console.log(sortByChoising(arr))
+console.log(count)
